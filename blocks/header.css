@@ -1,0 +1,23 @@
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  max-width: 882px;
+  width: 100%;
+  margin: 45px auto 40px;
+}
+
+.header__logo {
+  position: relative;
+  max-width: 173px;
+}
+
+.header__figure {
+  border: none;
+  height: 1px;
+  background-color: #545454;
+
+  max-width: 882px;
+  margin-top: 41px;
+}
