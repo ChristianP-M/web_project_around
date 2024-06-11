@@ -37,6 +37,38 @@
                   class="profile__info-icon-button"
                 />
               </button>
+              <div class="popup">
+                <form class="popup__container">
+                  <button class="popup__container-close-window">
+                    <img
+                      src="./images/close_Icon.png"
+                      alt="Cerrar Ventana"
+                      class="popup__container-icon-close"
+                    />
+                  </button>
+                  <p class="popup__container-title">Editar Perfil</p>
+                  <fieldset class="popup__container-form">
+                    <input
+                      type="text"
+                      name="nombre"
+                      class="popup__container-form-input"
+                      placeholder="Nombre"
+                      required
+                    />
+
+                    <input
+                      type="text"
+                      name="ocupation"
+                      class="popup__container-form-input"
+                      placeholder="Acerca de mí"
+                      required
+                    />
+                  </fieldset>
+                  <button type="submit" class="popup__container-form-button">
+                    Guardar
+                  </button>
+                </form>
+              </div>
             </div>
             <p class="profile__info-ocupation">Deb Web learner</p>
           </div>
