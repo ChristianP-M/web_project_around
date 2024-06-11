@@ -88,10 +88,18 @@
   height: 19px;
 }
 
-/* @media screen and (max-width: 900px) {
+@media screen and (max-width: 900px) {
   .elements__cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
   }
-} */
+}
+
+@media screen and (max-width: 581px) {
+  .elements__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}

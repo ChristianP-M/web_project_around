@@ -21,3 +21,19 @@
   max-width: 882px;
   margin-top: 41px;
 }
+
+@media screen and (max-width: 320px) {
+  .header {
+    margin-top: 0;
+  }
+
+  .header__logo {
+    max-width: 126px;
+    margin-top: 28px;
+    margin-left: 27px;
+  }
+
+  .header__figure {
+    margin-top: 32px;
+  }
+}
