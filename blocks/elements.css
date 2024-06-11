@@ -61,6 +61,9 @@
   background-color: #fff;
   color: black;
   width: 282px;
+  padding-left: 21px;
+  padding-right: 15px;
+  box-sizing: border-box;
 }
 
 .elements__card-head-title {
@@ -79,7 +82,7 @@
   border: 0;
   width: 21px;
   height: 19px;
-  margin: 0;
+  margin-left: auto;
   padding: 0;
 }
 
