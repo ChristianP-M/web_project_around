@@ -34,6 +34,11 @@
   background-color: transparent;
   border: 0;
   width: 40.7px;
+  cursor: pointer;
+}
+
+.popup__container-close-window:hover {
+  opacity: 0.6;
 }
 
 .popup__container-title {
@@ -90,6 +95,11 @@
   padding: 0;
   border-radius: 3px;
   margin: 0 auto 36.71px;
+  cursor: pointer;
+}
+
+.popup__container-form-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 520px) {

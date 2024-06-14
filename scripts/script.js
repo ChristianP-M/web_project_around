@@ -9,6 +9,14 @@ let ocupationInput = document.getElementById("ocupation");
 
 let formElement = document.querySelector(".popup__container");
 
+let likeButtons = document.querySelectorAll(".elements__card-head-like");
+
+likeButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    button.classList.toggle("elements__card-head-liked");
+  });
+});
+
 buttonOpenPopUp.addEventListener("click", function () {
   popupModalContainer.classList.add("popup__opened");
 });
