@@ -11,10 +11,56 @@ let formElement = document.querySelector(".popup__container");
 
 let likeButtons = document.querySelectorAll(".elements__card-head-like");
 
-likeButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    button.classList.toggle("elements__card-head-liked");
+const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
+
+// Informacion de las cartas
+const cardContainer = document.querySelector(".elements__cards");
+const cardsTemplate = document.querySelector("#card").content;
+
+//Iterar para cada elemento de la carta
+initialCards.forEach((cardData) => {
+  const cardElement = cardsTemplate
+    .querySelector(".elements__card")
+    .cloneNode(true);
+
+  const cardImage = cardElement.querySelector(".elements__card-image");
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
+
+  const cardTitle = cardElement.querySelector(".elements__card-head-title");
+  cardTitle.textContent = cardData.name;
+
+  const likeButton = cardElement.querySelector(".elements__card-head-like");
+  likeButton.addEventListener("click", function () {
+    likeButton.classList.toggle("elements__card-head-liked");
   });
+
+  cardContainer.appendChild(cardElement);
 });
 
 buttonOpenPopUp.addEventListener("click", function () {

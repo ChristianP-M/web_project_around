@@ -33,7 +33,8 @@
 }
 
 .elements__card-image {
-  max-width: 282px;
+  width: 282px;
+  height: 282px;
 }
 
 .elements__card-trash {
