@@ -81,122 +81,71 @@
               />
             </button>
           </div>
+          <!-- Este es el nuevo popup para el apartado, agregar imagen -->
+          <div class="popup">
+            <form class="popup__container">
+              <button class="popup__container-close-window">
+                <img
+                  src="./images/close_Icon.png"
+                  alt="Cerrar Ventana"
+                  class="popup__container-icon-close"
+                />
+              </button>
+              <p class="popup__container-title">Nuevo Lugar</p>
+              <fieldset class="popup__container-form">
+                <input
+                  type="text"
+                  id="titulo"
+                  class="popup__container-form-input"
+                  placeholder="Titulo"
+                />
+
+                <input
+                  type="text"
+                  id="urlImage"
+                  class="popup__container-form-input"
+                  placeholder="URL de la imagen"
+                />
+              </fieldset>
+              <button type="submit" class="popup__container-form-button">
+                Guardar
+              </button>
+            </form>
+          </div>
         </section>
         <section class="elements">
           <div class="elements__cards">
-            <div class="elements__card">
-              <img
-                src="./images/Valle_de_Yosemite.jpg"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
-                <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
-                />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">Valle de Yosemite</p>
-                <button class="elements__card-head-like"></button>
+            <template id="card">
+              <div class="elements__card">
+                <img src="" alt="" class="elements__card-image" />
+                <button class="elements__card-trash">
+                  <img
+                    src="./images/trash_icon.svg"
+                    alt="Eliminar Publicacion"
+                    class="elements__card-trash-icon"
+                  />
+                </button>
+                <div class="elements__card-head">
+                  <p class="elements__card-head-title"></p>
+                  <button class="elements__card-head-like"></button>
+                </div>
               </div>
-            </div>
-
-            <div class="elements__card">
-              <img
-                src="./images/Lago_Louise.png"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
+            </template>
+            <div class="popup-image">
+              <div class="popup-image__contain">
+                <button class="popup-image__close-window">
+                  <img
+                    src="./images/close_Icon.png"
+                    alt="Cerrar Ventana"
+                    class="popup-image__icon-close"
+                  />
+                </button>
                 <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
+                  src="https://images.unsplash.com/photo-1572293007244-8b60335d2b7d?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                  class="popup-image__contain-image"
                 />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">Lago Louise</p>
-                <button class="elements__card-head-like"></button>
-              </div>
-            </div>
-
-            <div class="elements__card">
-              <img
-                src="./images/Montañas_Carvas.png"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
-                <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
-                />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">Montañas Calvas</p>
-                <button class="elements__card-head-like"></button>
-              </div>
-            </div>
-
-            <div class="elements__card">
-              <img
-                src="./images/Leteman.png"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
-                <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
-                />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">Latemar</p>
-                <button class="elements__card-head-like"></button>
-              </div>
-            </div>
-
-            <div class="elements__card">
-              <img
-                src="./images/Vanois_National.png"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
-                <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
-                />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">
-                  Parque Nacional de la Vanoise
-                </p>
-                <button class="elements__card-head-like"></button>
-              </div>
-            </div>
-
-            <div class="elements__card">
-              <img
-                src="./images/Lago_Di_Braies.png"
-                alt="Valle de Yosemite"
-                class="elements__card-image"
-              />
-              <button class="elements__card-trash">
-                <img
-                  src="./images/trash_icon.svg"
-                  alt="Eliminar Publicacion"
-                  class="elements__card-trash-icon"
-                />
-              </button>
-              <div class="elements__card-head">
-                <p class="elements__card-head-title">Lago Di Braies</p>
-                <button class="elements__card-head-like"></button>
+                <p class="popup-image__title">Esta es una prueba</p>
               </div>
             </div>
           </div>

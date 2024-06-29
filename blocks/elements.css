@@ -33,7 +33,9 @@
 }
 
 .elements__card-image {
-  max-width: 282px;
+  width: 282px;
+  height: 282px;
+  cursor: pointer;
 }
 
 .elements__card-trash {
