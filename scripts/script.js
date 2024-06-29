@@ -1,15 +1,36 @@
-let popupModalContainer = document.querySelector(".popup");
-let buttonOpenPopUp = document.querySelector(".profile__info-edit-diseño");
-let buttonClosePopUp = document.querySelector(".popup__container-close-window");
+//Se guardan en una variable para reutilizar los popups distintos que tengo
+const popups = document.querySelectorAll(".popup");
 
+//Seleccionamos el popup que vamos a utilizar, 1 es para editar perfil
+//2 es para agregar imagenes al initialCards.
+const primerPopup = popups[0];
+const segundoPopup = popups[1];
+
+//Obtiene la ubicacion del boton
+let buttonEditarPerfil = document.querySelector(".profile__info-edit-diseño");
+//Este es para cerrar el primer formulario
+let buttonClosePopUp = primerPopup.querySelector(
+  ".popup__container-close-window"
+);
+
+//Obtiene la informacion de la pagina para editar el nombre y la ocupacion
 let nameDisplay = document.querySelector(".profile__info-name");
 let ocupationDisplay = document.querySelector(".profile__info-ocupation");
-let nameInput = document.getElementById("nombre");
-let ocupationInput = document.getElementById("ocupation");
 
-let formElement = document.querySelector(".popup__container");
+//obtiene los valores intoducidos del primer formulario
+let nameInput = primerPopup.querySelector("#nombre");
+let ocupationInput = primerPopup.querySelector("#ocupation");
 
+//Este es la variable para todos los me gusta de las tarjetas
 let likeButtons = document.querySelectorAll(".elements__card-head-like");
+
+////////////////Ahora vamos con el segundo formulario///////
+//Obtenemos la ubicacion del botón.
+const buttonAddCard = document.querySelector(".profile__button-add-diseño");
+//Este es para cerrar el segundo formulario
+const buttonClosePopUp2 = segundoPopup.querySelector(
+  ".popup__container-close-window"
+);
 
 const initialCards = [
   {
@@ -60,23 +81,33 @@ initialCards.forEach((cardData) => {
     likeButton.classList.toggle("elements__card-head-liked");
   });
 
+  const deleteButton = cardElement.querySelector(".elements__card-trash");
+  deleteButton.addEventListener("click", function () {
+    cardElement.remove();
+  });
+
   cardContainer.appendChild(cardElement);
 });
 
-buttonOpenPopUp.addEventListener("click", function () {
-  popupModalContainer.classList.add("popup__opened");
+//Esto es para abrir la edicion del perfil
+buttonEditarPerfil.addEventListener("click", function () {
+  primerPopup.classList.add("popup__opened");
 });
 
+//Esto es para cerrar el primerFormulario, sin guardar cambios
 buttonClosePopUp.addEventListener("click", function () {
-  popupModalContainer.classList.remove("popup__opened");
+  primerPopup.classList.remove("popup__opened");
 
+  // Restaura los valores originales en los campos de entrada
   nameInput.value = nameDisplay.textContent;
   ocupationInput.value = ocupationDisplay.textContent;
 });
 
+// Establece los valores iniciales en los campos de entrada
 nameInput.value = nameDisplay.textContent;
 ocupationInput.value = ocupationDisplay.textContent;
 
+// Maneja el envío del formulario de perfil
 function handleProfileFormSubmit(evet) {
   evet.preventDefault();
 
@@ -86,7 +117,59 @@ function handleProfileFormSubmit(evet) {
   nameDisplay.textContent = nameValue;
   ocupationDisplay.textContent = ocupationValue;
 
-  popupModalContainer.classList.remove("popup__opened");
+  primerPopup.classList.remove("popup__opened");
 }
 
-formElement.addEventListener("submit", handleProfileFormSubmit);
+let primerFormElement = primerPopup.querySelector(".popup__container");
+primerFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+//////ESto es para el segundo formulario
+buttonAddCard.addEventListener("click", function () {
+  segundoPopup.classList.add("popup__opened");
+});
+
+buttonClosePopUp2.addEventListener("click", function () {
+  segundoPopup.classList.remove("popup__opened");
+});
+
+//obtiene los valores intoducidos del segundo formulario
+let titleInput = segundoPopup.querySelector("#titulo");
+let urlInput = segundoPopup.querySelector("#urlImage");
+
+// Maneja el envío del formulario de agregar imagen
+function handleAddCardFormSubmit(event) {
+  event.preventDefault();
+
+  const newCard = {
+    name: titleInput.value,
+    link: urlInput.value,
+  };
+
+  initialCards.push(newCard);
+
+  const cardElement = cardsTemplate
+    .querySelector(".elements__card")
+    .cloneNode(true);
+
+  const cardImage = cardElement.querySelector(".elements__card-image");
+  cardImage.src = newCard.link;
+  cardImage.alt = newCard.name;
+
+  const cardTitle = cardElement.querySelector(".elements__card-head-title");
+  cardTitle.textContent = newCard.name;
+
+  const likeButton = cardElement.querySelector(".elements__card-head-like");
+  likeButton.addEventListener("click", function () {
+    likeButton.classList.toggle("elements__card-head-liked");
+  });
+
+  cardContainer.prepend(cardElement);
+
+  titleInput.value = "";
+  urlInput.value = "";
+
+  segundoPopup.classList.remove("popup__opened");
+}
+
+const segundoFormElement = segundoPopup.querySelector(".popup__container");
+segundoFormElement.addEventListener("submit", handleAddCardFormSubmit);
