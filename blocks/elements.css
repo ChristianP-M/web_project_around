@@ -35,6 +35,7 @@
 .elements__card-image {
   width: 282px;
   height: 282px;
+  cursor: pointer;
 }
 
 .elements__card-trash {
