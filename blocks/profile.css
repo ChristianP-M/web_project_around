@@ -27,7 +27,6 @@
   flex-direction: column;
   justify-content: end;
   font-size: 42px;
-  /* line-height: 56px; */
   font-weight: 500;
 
   margin: 0;
@@ -61,7 +60,6 @@
   display: flex;
   flex-direction: column;
   font-size: 18px;
-  line-height: auto;
   align-items: start;
 
   margin: 0;

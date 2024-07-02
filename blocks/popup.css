@@ -44,7 +44,6 @@
 .popup__container-title {
   font-size: 24px;
   font-weight: 900;
-  line-height: auto;
   color: #000;
 
   margin-top: 34px;
@@ -75,7 +74,6 @@
 .popup__container-form-input::placeholder {
   font-size: 14px;
   font-weight: 500;
-  line-height: auto;
   color: #c4c4c4;
 }
 
@@ -86,7 +84,6 @@
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  line-height: auto;
 
   width: 100%;
   max-width: 358px;
