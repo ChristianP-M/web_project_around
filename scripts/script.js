@@ -116,6 +116,14 @@ function handleAddCardFormSubmit(event) {
   popupPublicImage.classList.remove("popup__opened");
 }
 
+function closePopupOnOverlayClick(popupElement) {
+  popupElement.addEventListener("click", (event) => {
+    if (event.target === popupElement) {
+      popupElement.classList.remove("popup__opened");
+    }
+  });
+}
+
 // *** Listeners de Eventos ***
 
 // Inicializar tarjetas
@@ -164,3 +172,7 @@ buttonClosePopUp2.addEventListener("click", (event) => {
 popupPublicImage
   .querySelector(".popup__container")
   .addEventListener("submit", handleAddCardFormSubmit);
+
+closePopupOnOverlayClick(popupEditProfile);
+closePopupOnOverlayClick(popupPublicImage);
+closePopupOnOverlayClick(popupImage);
