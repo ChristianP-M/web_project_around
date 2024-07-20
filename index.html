@@ -40,7 +40,7 @@
                 />
               </button>
               <div class="popup" id="popup-edit-profile">
-                <form class="popup__container">
+                <form class="popup__container" novalidate>
                   <button class="popup__container-close-window">
                     <img
                       src="./images/close_Icon.png"
@@ -56,17 +56,30 @@
                       class="popup__container-form-input"
                       placeholder="Nombre"
                       required
+                      minlength="2"
+                      maxlength="40"
                     />
+                    <span
+                      class="nombre-error popup__container-form-input-error"
+                    ></span>
 
                     <input
                       type="text"
                       id="ocupation"
                       class="popup__container-form-input"
                       placeholder="Acerca de mí"
+                      minlength="2"
+                      maxlength="200"
                       required
                     />
+                    <span
+                      class="ocupation-error popup__container-form-input-error"
+                    ></span>
                   </fieldset>
-                  <button type="submit" class="popup__container-form-button">
+                  <button
+                    type="submit"
+                    class="popup__container-form-button popup__container-form-button_disabled"
+                  >
                     Guardar
                   </button>
                 </form>
@@ -84,7 +97,7 @@
             </button>
           </div>
           <div class="popup" id="popup-new-image">
-            <form class="popup__container">
+            <form class="popup__container" novalidate>
               <button class="popup__container-close-window">
                 <img
                   src="./images/close_Icon.png"
@@ -99,16 +112,29 @@
                   id="titulo"
                   class="popup__container-form-input"
                   placeholder="Titulo"
+                  minlength="2"
+                  maxlength="30"
+                  required
                 />
+                <span
+                  class="titulo-error popup__container-form-input-error"
+                ></span>
 
                 <input
-                  type="text"
+                  type="url"
                   id="urlImage"
                   class="popup__container-form-input"
                   placeholder="URL de la imagen"
+                  required
                 />
+                <span
+                  class="urlImage-error popup__container-form-input-error"
+                ></span>
               </fieldset>
-              <button type="submit" class="popup__container-form-button">
+              <button
+                type="submit"
+                class="popup__container-form-button popup__container-form-button_disabled"
+              >
                 Guardar
               </button>
             </form>
@@ -161,5 +187,6 @@
       </footer>
     </div>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

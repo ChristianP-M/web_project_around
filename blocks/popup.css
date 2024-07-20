@@ -67,8 +67,22 @@
 }
 
 .popup__container-form-input {
-  border: 0;
+  border: none;
+  border-bottom: 1px solid #979797;
   height: 27.34px;
+}
+
+.popup__container-form-input_type_error {
+  border-bottom-color: red;
+}
+
+.popup__container-form-input-error {
+  color: red;
+  display: none;
+}
+
+.popup__container-form-input-error_active {
+  display: block;
 }
 
 .popup__container-form-input::placeholder {
@@ -93,6 +107,14 @@
   border-radius: 3px;
   margin: 0 auto 36.71px;
   cursor: pointer;
+}
+
+.popup__container-form-button_disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
 }
 
 .popup__container-form-button:hover {

@@ -137,7 +137,8 @@ buttonEditarPerfil.addEventListener("click", () => {
 });
 
 // Cerrar popup de editar perfil
-buttonClosePopUp.addEventListener("click", () => {
+buttonClosePopUp.addEventListener("click", (event) => {
+  event.preventDefault();
   popupEditProfile.classList.remove("popup__opened");
 });
 
