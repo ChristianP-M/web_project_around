@@ -116,6 +116,7 @@ function handleAddCardFormSubmit(event) {
   popupPublicImage.classList.remove("popup__opened");
 }
 
+// Función para cerrar el popup al hacer clic en el overlay
 function closePopupOnOverlayClick(popupElement) {
   popupElement.addEventListener("click", (event) => {
     if (event.target === popupElement) {
@@ -125,6 +126,7 @@ function closePopupOnOverlayClick(popupElement) {
   });
 }
 
+// Función para cerrar el popup al presionar la tecla Escape
 function closePopupOnEscape(event) {
   if (event.key === "Escape") {
     const openPopups = document.querySelectorAll(
@@ -155,6 +157,15 @@ buttonEditarPerfil.addEventListener("click", () => {
   nameInput.value = nameDisplay.textContent;
   ocupationInput.value = ocupationDisplay.textContent;
   popupEditProfile.classList.add("popup__opened");
+
+  // Estado inicial del botón cuando se abre el formulario
+  const inputList = Array.from(
+    popupEditProfile.querySelectorAll(".popup__container-form-input")
+  );
+  const buttonElement = popupEditProfile.querySelector(
+    ".popup__container-form-button"
+  );
+  toggleButtonState(inputList, buttonElement);
 });
 
 // Cerrar popup de editar perfil
@@ -171,6 +182,17 @@ popupEditProfile
 // Abrir popup de nueva tarjeta
 buttonAddCard.addEventListener("click", () => {
   popupPublicImage.classList.add("popup__opened");
+
+  // Estado inicial del botón cuando se abre el formulario
+  titleInput.value = "";
+  urlInput.value = "";
+  const inputList = Array.from(
+    popupPublicImage.querySelectorAll(".popup__container-form-input")
+  );
+  const buttonElement = popupPublicImage.querySelector(
+    ".popup__container-form-button"
+  );
+  toggleButtonState(inputList, buttonElement);
 });
 
 // Cerrar popup de nueva tarjeta
