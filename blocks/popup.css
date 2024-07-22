@@ -77,8 +77,10 @@
 }
 
 .popup__container-form-input-error {
+  max-width: 358px;
   color: red;
   display: none;
+  margin: 0;
 }
 
 .popup__container-form-input-error_active {
@@ -110,8 +112,9 @@
 }
 
 .popup__container-form-button_disabled {
-  background-color: #cccccc;
-  color: #666666;
+  border: 1px solid #cccccc;
+  background-color: transparent;
+  color: #ccc;
   cursor: not-allowed;
   opacity: 0.6;
   box-shadow: none;
