@@ -1,5 +1,3 @@
-const formList = Array.from(document.querySelectorAll(".popup__container"));
-
 // Función para mostrar el error del input
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -25,12 +23,14 @@ const isValid = (formElement, inputElement) => {
   }
 };
 
+// Función para comprobar si hay un input inválido
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => !inputElement.validity.valid);
+};
+
 // Función para habilitar/deshabilitar el botón de envío
 const toggleButtonState = (inputList, buttonElement) => {
-  const hasInvalidInput = inputList.some(
-    (inputElement) => !inputElement.validity.valid
-  );
-  if (hasInvalidInput) {
+  if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("popup__container-form-button_disabled");
     buttonElement.disabled = true;
   } else {
@@ -48,22 +48,25 @@ const setEventListeners = (formElement) => {
     ".popup__container-form-button"
   );
 
+  toggleButtonState(inputList, buttonElement); // Verificar el estado del botón al inicio
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       isValid(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement); // Verificar el estado del botón al cambiar un input
     });
   });
 };
 
 // Función principal para habilitar la validación en todos los formularios
 const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll(".popup__container"));
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
 
-    setEventListeners(formElement);
+    setEventListeners(formElement); // Añadir event listeners a cada formulario
   });
 };
 
