@@ -137,6 +137,24 @@ function closePopupOnEscape(event) {
   }
 }
 
+// Abrir popup de editar perfil
+buttonEditarPerfil.addEventListener("click", () => {
+  nameInput.value = nameDisplay.textContent;
+  ocupationInput.value = ocupationDisplay.textContent;
+  popupEditProfile.classList.add("popup__opened");
+
+  // Validar los inputs y actualizar el estado del botón
+  const inputList = Array.from(
+    popupEditProfile.querySelectorAll(".popup__container-form-input")
+  );
+  const buttonElement = popupEditProfile.querySelector(
+    ".popup__container-form-button"
+  );
+  toggleButtonState(inputList, buttonElement, {
+    inactiveButtonClass: "popup__container-form-button_disabled",
+  });
+});
+
 // *** Listeners de Eventos ***
 
 // Inicializar tarjetas
@@ -155,6 +173,17 @@ buttonEditarPerfil.addEventListener("click", () => {
   nameInput.value = nameDisplay.textContent;
   ocupationInput.value = ocupationDisplay.textContent;
   popupEditProfile.classList.add("popup__opened");
+
+  // Validar los inputs y actualizar el estado del botón
+  const inputList = Array.from(
+    popupEditProfile.querySelectorAll(".popup__container-form-input")
+  );
+  const buttonElement = popupEditProfile.querySelector(
+    ".popup__container-form-button"
+  );
+  toggleButtonState(inputList, buttonElement, {
+    inactiveButtonClass: "popup__container-form-button_disabled",
+  });
 });
 
 // Cerrar popup de editar perfil
