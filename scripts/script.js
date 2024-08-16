@@ -1,3 +1,59 @@
+//*** Creacion de la Clase Card ***/
+
+class Card {
+  constructor(cardData, templateSelector) {
+    this._name = cardData.name;
+    this._link = cardData.link;
+    this._templateSelector = templateSelector;
+  }
+
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._templateSelector)
+      .content.querySelector(".elements__card")
+      .cloneNode(true);
+    return cardElement;
+  }
+
+  createCard() {
+    this._element = this._getTemplate();
+
+    // Añadir datos
+    this._cardImage = this._element.querySelector(".elements__card-image");
+    this._cardTitle = this._element.querySelector(".elements__card-head-title");
+    this._likeButton = this._element.querySelector(".elements__card-head-like");
+    this._deleteButton = this._element.querySelector(".elements__card-trash");
+
+    //Asignación de Contenido Dinámico
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardTitle.textContent = this._name;
+
+    this._setEventListeners();
+
+    // Devolver el elemento
+    return this._element;
+  }
+
+  // Método para establecer los event listeners
+  _setEventListeners() {
+    this._cardImage.addEventListener("click", () => {
+      popupImageContent.src = this._link;
+      popupImageContent.alt = this._name;
+      popupImageTitle.textContent = this._name;
+      popupImage.classList.add("popup-image__opened");
+    });
+
+    this._likeButton.addEventListener("click", () => {
+      this._likeButton.classList.toggle("elements__card-head-liked");
+    });
+
+    this._deleteButton.addEventListener("click", () => {
+      this._element.remove();
+    });
+  }
+}
+
 // *** Constantes y Variables ***
 
 // Popups
@@ -64,36 +120,11 @@ const initialCards = [
 
 // *** Funciones ***
 
-// Crear y añadir tarjeta al contenedor
+// Crear y añadir tarjeta al contenedor utilizando la clase Card
 function createCard(cardData) {
-  const cardElement = cardsTemplate
-    .querySelector(".elements__card")
-    .cloneNode(true);
-  const cardImage = cardElement.querySelector(".elements__card-image");
-  const cardTitle = cardElement.querySelector(".elements__card-head-title");
-  const likeButton = cardElement.querySelector(".elements__card-head-like");
-  const deleteButton = cardElement.querySelector(".elements__card-trash");
-
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-  cardTitle.textContent = cardData.name;
-
-  cardImage.addEventListener("click", () => {
-    popupImageContent.src = cardData.link;
-    popupImageContent.alt = cardData.name;
-    popupImageTitle.textContent = cardData.name;
-    popupImage.classList.add("popup-image__opened");
-  });
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("elements__card-head-liked");
-  });
-
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  return cardElement;
+  const card = new Card(cardData, "#card");
+  const cardElement = card.createCard();
+  cardContainer.prepend(cardElement);
 }
 
 // Manejar el envío del formulario de perfil
@@ -109,8 +140,7 @@ function handleAddCardFormSubmit(event) {
   event.preventDefault();
   const newCard = { name: titleInput.value, link: urlInput.value };
   initialCards.push(newCard);
-  const cardElement = createCard(newCard);
-  cardContainer.prepend(cardElement);
+  createCard(newCard);
   titleInput.value = "";
   urlInput.value = "";
   popupPublicImage.classList.remove("popup__opened");
@@ -159,8 +189,7 @@ buttonEditarPerfil.addEventListener("click", () => {
 
 // Inicializar tarjetas
 initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData);
-  cardContainer.appendChild(cardElement);
+  createCard(cardData);
 });
 
 // Cerrar popup de imagen
