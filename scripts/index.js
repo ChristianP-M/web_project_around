@@ -1,58 +1,6 @@
-//*** Creacion de la Clase Card ***/
-
-class Card {
-  constructor(cardData, templateSelector) {
-    this._name = cardData.name;
-    this._link = cardData.link;
-    this._templateSelector = templateSelector;
-  }
-
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector(".elements__card")
-      .cloneNode(true);
-    return cardElement;
-  }
-
-  createCard() {
-    this._element = this._getTemplate();
-
-    // Añadir datos
-    this._cardImage = this._element.querySelector(".elements__card-image");
-    this._cardTitle = this._element.querySelector(".elements__card-head-title");
-    this._likeButton = this._element.querySelector(".elements__card-head-like");
-    this._deleteButton = this._element.querySelector(".elements__card-trash");
-
-    //Asignación de Contenido Dinámico
-    this._cardImage.src = this._link;
-    this._cardImage.alt = this._name;
-    this._cardTitle.textContent = this._name;
-
-    this._setEventListeners();
-
-    // Devolver el elemento
-    return this._element;
-  }
-
-  // Método para establecer los event listeners
-  _setEventListeners() {
-    this._cardImage.addEventListener("click", () => {
-      popupImageContent.src = this._link;
-      popupImageContent.alt = this._name;
-      popupImageTitle.textContent = this._name;
-      popupImage.classList.add("popup-image__opened");
-    });
-
-    this._likeButton.addEventListener("click", () => {
-      this._likeButton.classList.toggle("elements__card-head-liked");
-    });
-
-    this._deleteButton.addEventListener("click", () => {
-      this._element.remove();
-    });
-  }
-}
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import { closePopupOnOverlayClick, closePopupOnEscape } from "./utils.js";
 
 // *** Constantes y Variables ***
 
@@ -88,7 +36,6 @@ const urlInput = popupPublicImage.querySelector("#urlImage");
 
 // Plantilla y Contenedor de Tarjetas
 const cardContainer = document.querySelector(".elements__cards");
-const cardsTemplate = document.querySelector("#card").content;
 
 // Tarjetas Iniciales
 const initialCards = [
@@ -120,13 +67,6 @@ const initialCards = [
 
 // *** Funciones ***
 
-// Crear y añadir tarjeta al contenedor utilizando la clase Card
-function createCard(cardData) {
-  const card = new Card(cardData, "#card");
-  const cardElement = card.createCard();
-  cardContainer.prepend(cardElement);
-}
-
 // Manejar el envío del formulario de perfil
 function handleProfileFormSubmit(event) {
   event.preventDefault();
@@ -139,62 +79,18 @@ function handleProfileFormSubmit(event) {
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
   const newCard = { name: titleInput.value, link: urlInput.value };
-  initialCards.push(newCard);
-  createCard(newCard);
-  titleInput.value = "";
-  urlInput.value = "";
+  const cardElement = new Card(newCard, "#card").generateCard();
+  cardContainer.prepend(cardElement);
   popupPublicImage.classList.remove("popup__opened");
 }
-
-function closePopupOnOverlayClick(popupElement) {
-  popupElement.addEventListener("click", (event) => {
-    if (event.target === popupElement) {
-      popupElement.classList.remove("popup__opened");
-      popupElement.classList.remove("popup-image__opened");
-    }
-  });
-}
-
-function closePopupOnEscape(event) {
-  if (event.key === "Escape") {
-    const openPopups = document.querySelectorAll(
-      ".popup__opened, .popup-image__opened"
-    );
-    openPopups.forEach((popup) => {
-      popup.classList.remove("popup__opened");
-      popup.classList.remove("popup-image__opened");
-    });
-  }
-}
-
-// Abrir popup de editar perfil
-buttonEditarPerfil.addEventListener("click", () => {
-  nameInput.value = nameDisplay.textContent;
-  ocupationInput.value = ocupationDisplay.textContent;
-  popupEditProfile.classList.add("popup__opened");
-
-  // Validar los inputs y actualizar el estado del botón
-  const inputList = Array.from(
-    popupEditProfile.querySelectorAll(".popup__container-form-input")
-  );
-  const buttonElement = popupEditProfile.querySelector(
-    ".popup__container-form-button"
-  );
-  toggleButtonState(inputList, buttonElement, {
-    inactiveButtonClass: "popup__container-form-button_disabled",
-  });
-});
 
 // *** Listeners de Eventos ***
 
 // Inicializar tarjetas
 initialCards.forEach((cardData) => {
-  createCard(cardData);
-});
-
-// Cerrar popup de imagen
-popupCloseButton.addEventListener("click", () => {
-  popupImage.classList.remove("popup-image__opened");
+  const card = new Card(cardData, "#card");
+  const cardElement = card.generateCard();
+  cardContainer.append(cardElement); // Asegúrate de que `cardContainer` esté bien seleccionado
 });
 
 // Abrir popup de editar perfil
@@ -204,15 +100,18 @@ buttonEditarPerfil.addEventListener("click", () => {
   popupEditProfile.classList.add("popup__opened");
 
   // Validar los inputs y actualizar el estado del botón
-  const inputList = Array.from(
-    popupEditProfile.querySelectorAll(".popup__container-form-input")
+  const profileFormValidator = new FormValidator(
+    {
+      formSelector: ".popup__container",
+      inputSelector: ".popup__container-form-input",
+      submitButtonSelector: ".popup__container-form-button",
+      inactiveButtonClass: "popup__container-form-button_disabled",
+      inputErrorClass: "popup__container-form-input_type_error",
+      errorClass: "popup__container-form-input-error_active",
+    },
+    popupEditProfile
   );
-  const buttonElement = popupEditProfile.querySelector(
-    ".popup__container-form-button"
-  );
-  toggleButtonState(inputList, buttonElement, {
-    inactiveButtonClass: "popup__container-form-button_disabled",
-  });
+  profileFormValidator.enableValidation();
 });
 
 // Cerrar popup de editar perfil
@@ -229,6 +128,23 @@ popupEditProfile
 // Abrir popup de nueva tarjeta
 buttonAddCard.addEventListener("click", () => {
   popupPublicImage.classList.add("popup__opened");
+
+  // Estado inicial del botón cuando se abre el formulario
+  titleInput.value = "";
+  urlInput.value = "";
+
+  const cardFormValidator = new FormValidator(
+    {
+      formSelector: ".popup__container",
+      inputSelector: ".popup__container-form-input",
+      submitButtonSelector: ".popup__container-form-button",
+      inactiveButtonClass: "popup__container-form-button_disabled",
+      inputErrorClass: "popup__container-form-input_type_error",
+      errorClass: "popup__container-form-input-error_active",
+    },
+    popupPublicImage
+  );
+  cardFormValidator.enableValidation();
 });
 
 // Cerrar popup de nueva tarjeta
