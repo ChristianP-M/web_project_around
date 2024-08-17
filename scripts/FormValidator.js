@@ -3,14 +3,13 @@ export default class FormValidator {
     this._config = config;
     this._formElement = formElement;
     this._inputList = Array.from(
-      this._formElement.querySelectorAll(this._config.inputSelector)
+      formElement.querySelectorAll(config.inputSelector)
     );
-    this._buttonElement = this._formElement.querySelector(
-      this._config.submitButtonSelector
+    this._buttonElement = formElement.querySelector(
+      config.submitButtonSelector
     );
   }
 
-  // Método privado para mostrar el error
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
@@ -20,7 +19,6 @@ export default class FormValidator {
     errorElement.classList.add(this._config.errorClass);
   }
 
-  // Método privado para ocultar el error
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
@@ -30,7 +28,6 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
 
-  // Método privado para validar el campo
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
@@ -39,11 +36,9 @@ export default class FormValidator {
     }
   }
 
-  // Método privado para habilitar/deshabilitar el botón
   _toggleButtonState() {
     const hasInvalidInput = this._inputList.some(
-      (inputElement) =>
-        !inputElement.validity.valid || inputElement.value.trim() === ""
+      (inputElement) => !inputElement.validity.valid
     );
     if (hasInvalidInput) {
       this._buttonElement.classList.add(this._config.inactiveButtonClass);
@@ -54,24 +49,25 @@ export default class FormValidator {
     }
   }
 
-  // Método privado para añadir listeners
   _setEventListeners() {
-    this._toggleButtonState();
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
     });
+
+    this._toggleButtonState();
   }
 
-  // Método público para habilitar la validación
   enableValidation() {
-    this._formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
-
     this._setEventListeners();
+  }
+
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+    this._toggleButtonState();
   }
 }

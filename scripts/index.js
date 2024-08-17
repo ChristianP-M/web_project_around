@@ -34,6 +34,12 @@ const ocupationInput = popupEditProfile.querySelector("#ocupation");
 const titleInput = popupPublicImage.querySelector("#titulo");
 const urlInput = popupPublicImage.querySelector("#urlImage");
 
+// Seleccionar los formularios y crear instancias de FormValidator
+// const profileForm = document.querySelector("#popup-edit-profile .popup__container");
+const addCardForm = document.querySelector(
+  "#popup-new-image .popup__container"
+);
+
 // Plantilla y Contenedor de Tarjetas
 const cardContainer = document.querySelector(".elements__cards");
 
@@ -112,6 +118,29 @@ buttonEditarPerfil.addEventListener("click", () => {
     popupEditProfile
   );
   profileFormValidator.enableValidation();
+});
+
+const addCardFormValidator = new FormValidator(
+  {
+    formSelector: ".popup__container",
+    inputSelector: ".popup__container-form-input",
+    submitButtonSelector: ".popup__container-form-button",
+    inactiveButtonClass: "popup__container-form-button_disabled",
+    inputErrorClass: "popup__container-form-input_type_error",
+    errorClass: "popup__container-form-input-error_active",
+  },
+  addCardForm
+);
+
+// Restablecer la validación cuando se abra un formulario
+// buttonEditarPerfil.addEventListener("click", () => {
+//   profileFormValidator.resetValidation();
+//   popupEditProfile.classList.add("popup__opened");
+// });
+
+buttonAddCard.addEventListener("click", () => {
+  addCardFormValidator.resetValidation();
+  popupPublicImage.classList.add("popup__opened");
 });
 
 // Cerrar popup de editar perfil
